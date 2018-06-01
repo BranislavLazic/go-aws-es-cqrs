@@ -55,6 +55,12 @@
   version = "v1.37.0"
 
 [[projects]]
+  name = "github.com/golang/protobuf"
+  packages = ["proto"]
+  revision = "b4deda0973fb4c70b50d226b1af49f3da59f5265"
+  version = "v1.1.0"
+
+[[projects]]
   name = "github.com/jmespath/go-jmespath"
   packages = ["."]
   revision = "0b12d6b5"
@@ -68,6 +74,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "041bb581a4316f48f6b9662ecf6eeece75d1badb5dae7ab157afb9e445e647b3"
+  inputs-digest = "39ddb7da084439f38f29993fdd26c666cc225963c56604fd2df1d66098511f90"
   solver-name = "gps-cdcl"
   solver-version = 1

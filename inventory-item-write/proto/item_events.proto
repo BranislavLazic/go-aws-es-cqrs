@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package itemEvents;
+
+message ItemAdded {
+    string id   = 1;
+    string name = 2;
+}
+
+message ItemUpdated {
+    string id   = 1;
+    string name = 2;
+}
+
+message ItemDeleted {
+    string id = 1;
+}

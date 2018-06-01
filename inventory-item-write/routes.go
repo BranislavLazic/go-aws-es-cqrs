@@ -1,12 +1,16 @@
 package main
 
 import (
+	"encoding/json"
+
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/twinj/uuid"
 )
 
 func createItem(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	eventStoreRecord := NewEventStoreRecord(uuid.NewV4().String(), "add-item", req.Body)
+	itemAdded := &ItemAdded{}
+	json.Unmarshal([]byte(req.Body), itemAdded)
+	eventStoreRecord := newEventStoreRecord(uuid.NewV4().String(), "add-item", itemAdded)
 	err := eventStoreRecord.persist()
 	if err != nil {
 		return serverError(err)
