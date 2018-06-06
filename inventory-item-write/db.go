@@ -71,16 +71,18 @@ type EventStoreRecord struct {
 	ID string `json:"id"`
 	// Sort key
 	Sequence  int    `json:"sequence"`
-	Tag       string `json:"tag"`
+	TagOne    string `json:"tag1"`
+	TagTwo    string `json:"tag2"`
 	Timestamp string `json:"timestamp"`
 	Event     string `json:"event"`
 }
 
-func newEventStoreRecord(id, tag string, event SerializableEvent) *EventStoreRecord {
+func newEventStoreRecord(id, tag1, tag2 string, event SerializableEvent) *EventStoreRecord {
 	return &EventStoreRecord{
 		ID:        id,
 		Sequence:  0,
-		Tag:       tag,
+		TagOne:    tag1,
+		TagTwo:    tag2,
 		Timestamp: time.Now().String(),
 		Event:     string(event.serialize()),
 	}
@@ -112,7 +114,8 @@ func (esr EventStoreRecord) persist() error {
 		Item: map[string]*dynamodb.AttributeValue{
 			"Id":        {S: aws.String(esr.ID)},
 			"Sequence":  {N: aws.String(strconv.Itoa(esr.Sequence + 1))},
-			"Tag":       {S: aws.String(esr.Tag)},
+			"Tag1":      {S: aws.String(esr.TagOne)},
+			"Tag2":      {S: aws.String(esr.TagTwo)},
 			"Timestamp": {S: aws.String(esr.Timestamp)},
 			"Event":     {S: aws.String(esr.Event)},
 		},

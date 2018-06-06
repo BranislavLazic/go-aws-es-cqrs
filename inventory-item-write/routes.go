@@ -10,7 +10,7 @@ import (
 func createItem(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	itemAdded := &ItemAdded{}
 	json.Unmarshal([]byte(req.Body), itemAdded)
-	eventStoreRecord := newEventStoreRecord(uuid.NewV4().String(), "add-item", itemAdded)
+	eventStoreRecord := newEventStoreRecord(uuid.NewV4().String(), "inventory-item-evt", "item-added", itemAdded)
 	err := eventStoreRecord.persist()
 	if err != nil {
 		return serverError(err)
